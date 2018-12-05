@@ -1,0 +1,17 @@
+{
+  "name": "eval-formula",
+  "version": "1.0.0",
+  "dependencies": {
+    "bignumber.js": "^8.0.1",
+    "nearley": "^2.15.1"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "main": "index.js",
+  "author": "xJeneK",
+  "license": "ISC"
+}

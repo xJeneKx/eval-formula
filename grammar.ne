@@ -69,6 +69,10 @@ N -> float          {% id %}
     | "e"           {% function(d) {return new BigNumber(Math.E); } %}
     | "sqrt" _ P    {% function(d) {return d[2].sqrt(); } %}
     | "ln" _ P      {% function(d) {return new BigNumber(Math.log(d[2].toNumber())); }  %}
+    | "min(" _ ([0-9\,\s]:+) _ ")"  {% function(d) {var params = d[2][0].join('').split(','); return new BigNumber.min(...params); }  %}
+    | "max(" _ ([0-9\,\s]:+) _ ")"  {% function(d) {var params = d[2][0].join('').split(','); return new BigNumber.max(...params); }  %}
+    | "ceil" _ P    {% function(d) {return d[2].dp(0, 2); } %}
+    | "floor" _ P    {% function(d) {return d[2].dp(0, 3); } %}
 
 float ->
       int "." int   {% function(d) {return new BigNumber(d[0] + d[1] + d[2])} %}
@@ -76,5 +80,5 @@ float ->
 
 value -> AS {% id %}
 int -> [0-9]:+        {% function(d) {return d[0].join(""); } %}
-string -> [\w\s]:+        {% function(d) {return d[0].join("").trim(); } %}
+string -> "\"" [\w\s]:+ "\""        {% function(d) {return d[1].join("").trim(); } %}
 _ -> [\s]:*     {% function(d) {return null; } %}

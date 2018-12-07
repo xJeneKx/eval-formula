@@ -105,24 +105,24 @@ test('3 <= 2', t => {
 	t.deepEqual(evalFormula("3 <= 1"), false);
 });
 
-test('test == test', t => {
-	t.deepEqual(evalFormula("test == test"), true);
+test('"test" == "test"', t => {
+	t.deepEqual(evalFormula('"test" == "test"'), true);
 });
 
-test('test != test', t => {
-	t.deepEqual(evalFormula("test != test"), false);
+test('"test" != "test"', t => {
+	t.deepEqual(evalFormula('"test" != "test"'), false);
 });
 
-test('test 1 != test 2', t => {
-	t.deepEqual(evalFormula("test 1 != test 2"), true);
+test('"test 1" != "test 2"', t => {
+	t.deepEqual(evalFormula('"test 1" != "test 2"'), true);
 });
 
-test('test 2 != test 2', t => {
-	t.deepEqual(evalFormula("test 2 != test 2"), false);
+test('"test 2" != "test 2"', t => {
+	t.deepEqual(evalFormula('"test 2" != "test 2"'), false);
 });
 
-test('test 3 == test 3', t => {
-	t.deepEqual(evalFormula("test 3 == test 3"), true);
+test('"test 3" == "test 3"', t => {
+	t.deepEqual(evalFormula('"test 3" == "test 3"'), true);
 });
 
 test('1 && 1', t => {
@@ -178,4 +178,34 @@ test('1000000000000000000000000000000 == 1000000000000000000000000000000', t => 
 
 test('1000000000000000000000000000000 == 1000000000000000000000000000001', t => {
 	t.deepEqual(evalFormula("1000000000000000000000000000000 == 1000000000000000000000000000001"), false);
+});
+
+test('min 1,2', t => {
+	t.deepEqual(evalFormula('min(1,2)').eq(1), true);
+});
+
+test('min 1,2,4', t => {
+	t.deepEqual(evalFormula('min(1,2,4)').eq(1), true);
+});
+test('min 2,3,5,7', t => {
+	t.deepEqual(evalFormula('min(2,3,5,7)').eq(2), true);
+});
+
+test('max 1,2', t => {
+	t.deepEqual(evalFormula('max(1,2)').eq(2), true);
+});
+
+test('max 1,2,4', t => {
+	t.deepEqual(evalFormula('max(1,2,4)').eq(4), true);
+});
+test('max 2,3,5,7', t => {
+	t.deepEqual(evalFormula('max(2,3,5,7)').eq(7), true);
+});
+
+test('ceil 2.5', t => {
+	t.deepEqual(evalFormula('ceil(2.5)').eq(3), true);
+});
+
+test('floor 2.5', t => {
+	t.deepEqual(evalFormula('floor(2.5)').eq(2), true);
 });

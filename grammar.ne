@@ -73,6 +73,7 @@ N -> float          {% id %}
     | "max(" _ ([0-9\,\s]:+) _ ")"  {% function(d) {var params = d[2][0].join('').split(','); return new BigNumber.max(...params); }  %}
     | "ceil" _ P    {% function(d) {return d[2].dp(0, 2); } %}
     | "floor" _ P    {% function(d) {return d[2].dp(0, 3); } %}
+    | "round" _ P    {% function(d) {return d[2].dp(0, 6); } %}
 
 float ->
       int "." int   {% function(d) {return new BigNumber(d[0] + d[1] + d[2])} %}

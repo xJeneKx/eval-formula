@@ -209,3 +209,7 @@ test('ceil 2.5', t => {
 test('floor 2.5', t => {
 	t.deepEqual(evalFormula('floor(2.5)').eq(2), true);
 });
+
+test('round 2.5', t => {
+	t.deepEqual(evalFormula('round(2.9)').eq(3), true);
+});

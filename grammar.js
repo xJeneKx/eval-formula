@@ -99,6 +99,8 @@ var grammar = {
     {"name": "N", "symbols": ["N$string$12", "_", "P"], "postprocess": function(d) {return d[2].dp(0, 2); }},
     {"name": "N$string$13", "symbols": [{"literal":"f"}, {"literal":"l"}, {"literal":"o"}, {"literal":"o"}, {"literal":"r"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "N", "symbols": ["N$string$13", "_", "P"], "postprocess": function(d) {return d[2].dp(0, 3); }},
+    {"name": "N$string$14", "symbols": [{"literal":"r"}, {"literal":"o"}, {"literal":"u"}, {"literal":"n"}, {"literal":"d"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "N", "symbols": ["N$string$14", "_", "P"], "postprocess": function(d) {return d[2].dp(0, 6); }},
     {"name": "float", "symbols": ["int", {"literal":"."}, "int"], "postprocess": function(d) {return new BigNumber(d[0] + d[1] + d[2])}},
     {"name": "float", "symbols": ["int"], "postprocess": function(d) {return new BigNumber(d[0])}},
     {"name": "value", "symbols": ["AS"], "postprocess": id},

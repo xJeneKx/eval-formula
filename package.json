@@ -1,6 +1,7 @@
 {
   "name": "eval-formula",
-  "version": "1.0.3",
+  "version": "1.0.4",
+  "description": "Library for calculating formulas. Supports very large numbers(uses BigNumber)",
   "dependencies": {
     "async": "^2.6.1",
     "bignumber.js": "^8.0.1",
@@ -14,5 +15,13 @@
   },
   "main": "index.js",
   "author": "xJeneK",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xJeneKx/eval-formula.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xJeneKx/eval-formula/issues"
+  },
+  "homepage": "https://github.com/xJeneKx/eval-formula#readme"
 }

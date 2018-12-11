@@ -1,7 +1,8 @@
 {
   "name": "eval-formula",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "dependencies": {
+    "async": "^2.6.1",
     "bignumber.js": "^8.0.1",
     "nearley": "^2.15.1"
   },

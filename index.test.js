@@ -2,214 +2,323 @@ var evalFormula = require('./index');
 var test = require('ava');
 
 test('1 + 1', t => {
-	t.deepEqual(evalFormula("1 + 1").eq(2), true);
+	evalFormula("1 + 1", res => {
+		t.deepEqual(res.eq(2), true);
+	});
 });
 
 test('1 - 1', t => {
-	t.deepEqual(evalFormula("1 - 1").eq(0), true);
+	evalFormula("1 - 1", res => {
+		t.deepEqual(res.eq(0), true);
+	});
 });
 
 test('2 * 2', t => {
-	t.deepEqual(evalFormula("2 * 2").eq(4), true);
+	evalFormula("2 * 2", res => {
+		t.deepEqual(res.eq(4), true);
+	});
 });
 
 test('2 / 2', t => {
-	t.deepEqual(evalFormula("2 / 2").eq(1), true);
+	evalFormula("2 / 2", res => {
+		t.deepEqual(res.eq(1), true);
+	});
 });
 
 test('2 ^ 4', t => {
-	t.deepEqual(evalFormula("2 ^ 4").eq(16), true);
+	evalFormula("2 ^ 4", res => {
+		t.deepEqual(res.eq(16), true);
+	});
 });
 
 test('(2 + 2) * 2', t => {
-	t.deepEqual(evalFormula("(2 + 2) * 2").eq(8), true);
+	evalFormula("(2 + 2) * 2", res => {
+		t.deepEqual(res.eq(8), true);
+	});
 });
 
 test('2 + 2 * 2', t => {
-	t.deepEqual(evalFormula("2 + 2 * 2").eq(6), true);
+	evalFormula("2 + 2 * 2", res => {
+		t.deepEqual(res.eq(6), true);
+	});
 });
 
 test('pi + 2', t => {
-	t.deepEqual(evalFormula("pi + 2").eq(Math.PI + 2), true);
+	evalFormula("pi + 2", res => {
+		t.deepEqual(res.eq(Math.PI + 2), true);
+	});
 });
 
 test('e + 2', t => {
-	t.deepEqual(evalFormula("e + 2").eq(Math.E + 2), true);
+	evalFormula("e + 2", res => {
+		t.deepEqual(res.eq(Math.E + 2), true);
+	});
 });
 
 test('sin(2)', t => {
-	t.deepEqual(evalFormula("sin(2)").eq(0.9092974268256817), true);
+	evalFormula("sin(2)", res => {
+		t.deepEqual(res.eq(0.9092974268256817), true);
+	});
 });
 
 test('cos(2)', t => {
-	t.deepEqual(evalFormula("cos(2)").eq(-0.4161468365471424), true);
+	evalFormula("cos(2)", res => {
+		t.deepEqual(res.eq(-0.4161468365471424), true);
+	});
 });
 
 test('tan(2)', t => {
-	t.deepEqual(evalFormula("tan(2)").eq(-2.185039863261519), true);
+	evalFormula("tan(2)", res => {
+		t.deepEqual(res.eq(-2.185039863261519), true);
+	});
 });
 
 test('asin(1)', t => {
-	t.deepEqual(evalFormula("asin(1)").eq(1.5707963267948966), true);
+	evalFormula("asin(1)", res => {
+		t.deepEqual(res.eq(1.5707963267948966), true);
+	});
 });
 
 test('acos(1)', t => {
-	t.deepEqual(evalFormula("acos(1)").eq(0), true);
+	evalFormula("acos(1)", res => {
+		t.deepEqual(res.eq(0), true);
+	});
 });
 
 test('atan(2)', t => {
-	t.deepEqual(evalFormula("atan(2)").eq(1.1071487177940904), true);
+	evalFormula("atan(2)", res => {
+		t.deepEqual(res.eq(1.1071487177940904), true);
+	});
 });
 
 test('sqrt(2)', t => {
-	t.deepEqual(evalFormula("sqrt(2)").eq('1.4142135623730950488'), true);
+	evalFormula("sqrt(2)", res => {
+		t.deepEqual(res.eq('1.4142135623730950488'), true);
+	});
 });
 
 test('ln(2)', t => {
-	t.deepEqual(evalFormula("ln(2)").eq(0.6931471805599453), true);
+	evalFormula("ln(2)", res => {
+		t.deepEqual(res.eq(0.6931471805599453), true);
+	});
 });
 
 test('1 == 1', t => {
-	t.deepEqual(evalFormula("1 == 1"), true);
+	evalFormula("1 == 1", res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('1 != 1', t => {
-	t.deepEqual(evalFormula("1 != 1"), false);
+	evalFormula("1 != 1", res => {
+		t.deepEqual(res, false);
+	});
 });
 
 test('1 != 2', t => {
-	t.deepEqual(evalFormula("1 != 2"), true);
+	evalFormula("1 != 2", res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('1 < 2', t => {
-	t.deepEqual(evalFormula("1 < 2"), true);
+	evalFormula("1 < 2", res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('1 > 2', t => {
-	t.deepEqual(evalFormula("1 > 2"), false);
+	evalFormula("1 > 2", res => {
+		t.deepEqual(res, false);
+	});
 });
 
 test('1 >= 2', t => {
-	t.deepEqual(evalFormula("2 >= 2"), true);
+	evalFormula("2 >= 2", res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('1 <= 2', t => {
-	t.deepEqual(evalFormula("1 <= 2"), true);
+	evalFormula("1 <= 2", res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('0 >= 2', t => {
-	t.deepEqual(evalFormula("0 >= 2"), false);
+	evalFormula("0 >= 2", res => {
+		t.deepEqual(res, false);
+	});
 });
 
 test('3 <= 2', t => {
-	t.deepEqual(evalFormula("3 <= 1"), false);
+	evalFormula("3 <= 1", res => {
+		t.deepEqual(res, false);
+	});
 });
 
 test('"test" == "test"', t => {
-	t.deepEqual(evalFormula('"test" == "test"'), true);
+	evalFormula('"test" == "test"', res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('"test" != "test"', t => {
-	t.deepEqual(evalFormula('"test" != "test"'), false);
+	evalFormula('"test" != "test"', res => {
+		t.deepEqual(res, false);
+	});
 });
 
 test('"test 1" != "test 2"', t => {
-	t.deepEqual(evalFormula('"test 1" != "test 2"'), true);
+	evalFormula('"test 1" != "test 2"', res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('"test 2" != "test 2"', t => {
-	t.deepEqual(evalFormula('"test 2" != "test 2"'), false);
+	evalFormula('"test 2" != "test 2"', res => {
+		t.deepEqual(res, false);
+	});
 });
 
 test('"test 3" == "test 3"', t => {
-	t.deepEqual(evalFormula('"test 3" == "test 3"'), true);
+	evalFormula('"test 3" == "test 3"', res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('1 && 1', t => {
-	t.deepEqual(evalFormula("1 && 1"), true);
+	evalFormula("1 && 1", res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('0 && 0', t => {
-	t.deepEqual(evalFormula("0 && 0"), false);
+	evalFormula("0 && 0", res => {
+		t.deepEqual(res, false);
+	});
 });
 
 test('0 && 1', t => {
-	t.deepEqual(evalFormula("0 && 1"), false);
+	evalFormula("0 && 1", res => {
+		t.deepEqual(res, false);
+	});
 });
 
 test('0 || 1', t => {
-	t.deepEqual(evalFormula("0 || 1"), true);
+	evalFormula("0 || 1", res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('1 == 1 && 1 == 1', t => {
-	t.deepEqual(evalFormula("1 == 1 && 1 == 1"), true);
+	evalFormula("1 == 1 && 1 == 1", res => {
+		t.deepEqual(res, true);
+	});
 });
 test('1 == 1 && 1 == 2', t => {
-	t.deepEqual(evalFormula("1 == 1 && 1 == 2"), false);
+	evalFormula("1 == 1 && 1 == 2", res => {
+		t.deepEqual(res, false);
+	});
 });
 
 test('1 == 1 || 1 == 2', t => {
-	t.deepEqual(evalFormula("1 == 1 || 1 == 2"), true);
+	evalFormula("1 == 1 || 1 == 2", res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('1 == 2 || 1 == 2', t => {
-	t.deepEqual(evalFormula("1 == 2 || 1 == 2"), false);
+	evalFormula("1 == 2 || 1 == 2", res => {
+		t.deepEqual(res, false);
+	});
 });
 
 test('10 == 10 ? 1 : 2', t => {
-	t.deepEqual(evalFormula("10 == 10 ? 1 : 2").eq(1), true);
+	evalFormula("10 == 10 ? 1 : 2", res => {
+		t.deepEqual(res.eq(1), true);
+	});
 });
 
 test('10 != 10 ? 1 : 2', t => {
-	t.deepEqual(evalFormula("10 != 10 ? 1 : 2").eq(2), true);
+	evalFormula("10 != 10 ? 1 : 2", res => {
+		t.deepEqual(res.eq(2), true);
+	});
 });
 
 test('10 == 10 ? 1 + 1 : 2 + 2', t => {
-	t.deepEqual(evalFormula("10 == 10 ? 1 + 1 : 2 + 2").eq(2), true);
+	evalFormula("10 == 10 ? 1 + 1 : 2 + 2", res => {
+		t.deepEqual(res.eq(2), true);
+	});
 });
 
 test('10 != 10 ? 1 + 1 : 2 + 2', t => {
-	t.deepEqual(evalFormula("10 != 10 ? 1 + 1 : 2 + 2").eq(4), true);
+	evalFormula("10 != 10 ? 1 + 1 : 2 + 2", res => {
+		t.deepEqual(res.eq(4), true);
+	});
 });
 
 test('1000000000000000000000000000000 == 1000000000000000000000000000000', t => {
-	t.deepEqual(evalFormula("1000000000000000000000000000000 == 1000000000000000000000000000000"), true);
+	evalFormula("1000000000000000000000000000000 == 1000000000000000000000000000000", res => {
+		t.deepEqual(res, true);
+	});
 });
 
 test('1000000000000000000000000000000 == 1000000000000000000000000000001', t => {
-	t.deepEqual(evalFormula("1000000000000000000000000000000 == 1000000000000000000000000000001"), false);
+	evalFormula("1000000000000000000000000000000 == 1000000000000000000000000000001", res => {
+		t.deepEqual(res, false);
+	});
 });
 
 test('min 1,2', t => {
-	t.deepEqual(evalFormula('min(1,2)').eq(1), true);
+	evalFormula('min(1,2)', res => {
+		t.deepEqual(res.eq(1), true);
+	});
 });
 
 test('min 1,2,4', t => {
-	t.deepEqual(evalFormula('min(1,2,4)').eq(1), true);
+	evalFormula("min(1,2,4)", res => {
+		t.deepEqual(res.eq(1), true);
+	});
 });
+
 test('min 2,3,5,7', t => {
-	t.deepEqual(evalFormula('min(2,3,5,7)').eq(2), true);
+	evalFormula("min(2,3,5,7)", res => {
+		t.deepEqual(res.eq(2), true);
+	});
 });
 
 test('max 1,2', t => {
-	t.deepEqual(evalFormula('max(1,2)').eq(2), true);
+	evalFormula("max(1,2)", res => {
+		t.deepEqual(res.eq(2), true);
+	});
 });
 
 test('max 1,2,4', t => {
-	t.deepEqual(evalFormula('max(1,2,4)').eq(4), true);
+	evalFormula("max(1,2,4)", res => {
+		t.deepEqual(res.eq(4), true);
+	});
 });
 test('max 2,3,5,7', t => {
-	t.deepEqual(evalFormula('max(2,3,5,7)').eq(7), true);
+	evalFormula("max(2,3,5,7)", res => {
+		t.deepEqual(res.eq(7), true);
+	});
 });
 
 test('ceil 2.5', t => {
-	t.deepEqual(evalFormula('ceil(2.5)').eq(3), true);
+	evalFormula("ceil(2.5)", res => {
+		t.deepEqual(res.eq(3), true);
+	});
 });
 
 test('floor 2.5', t => {
-	t.deepEqual(evalFormula('floor(2.5)').eq(2), true);
+	evalFormula('floor(2.5)', res => {
+		t.deepEqual(res.eq(2), true);
+	});
 });
 
 test('round 2.5', t => {
-	t.deepEqual(evalFormula('round(2.9)').eq(3), true);
+	evalFormula('round(2.9)', res => {
+		t.deepEqual(res.eq(3), true);
+	});
 });

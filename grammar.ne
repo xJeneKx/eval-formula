@@ -4,15 +4,15 @@
 
 main -> _ condition _ {% function(d) {return d[1]; } %}
 
-IFELSE -> _ condition _ "?" _ AS _ ":" _ AS {% d => {return ['ifelse', d[1], d[5], d[9]];}%}
+IFELSE -> _ condition _ "?" _ AS _ ":" _ AS {% function(d) {return ['ifelse', d[1], d[5], d[9]];}%}
 
-OR -> condition2 _ "||" _ condition {%d => {return ['or', d[0], d[4]];}%}
+OR -> condition2 _ "||" _ condition {% function(d) {return ['or', d[0], d[4]];}%}
 
-AND -> condition2 _ "&&" _ condition {%d => {return ['and', d[0], d[4]];}%}
+AND -> condition2 _ "&&" _ condition {% function(d) {return ['and', d[0], d[4]];}%}
 
 condition -> AS _ conditional _ AS {% function(d) {return ['condition', d[2], d[0], d[4]];}%}
- 			| string _ "==" _ string {% d => {return ['stringCondition', '==', d[0], d[4]];} %}
- 			| string _ "!=" _ string {% d => {return ['stringCondition', '!=', d[0], d[4]];} %}
+ 			| string _ "==" _ string {% function(d) {return ['stringCondition', '==', d[0], d[4]];} %}
+ 			| string _ "!=" _ string {% function(d) {return ['stringCondition', '!=', d[0], d[4]];} %}
 			| AND {% id %}
 			| OR {% id %}
 			| AS {% id %}

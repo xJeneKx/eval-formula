@@ -1,6 +1,6 @@
 {
   "name": "eval-formula",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Library for calculating formulas. Supports very large numbers(uses BigNumber)",
   "dependencies": {
     "async": "^2.6.1",
@@ -23,5 +23,17 @@
   "bugs": {
     "url": "https://github.com/xJeneKx/eval-formula/issues"
   },
-  "homepage": "https://github.com/xJeneKx/eval-formula#readme"
+  "homepage": "https://github.com/xJeneKx/eval-formula#readme",
+  "keywords": [
+    "eval",
+    "formula",
+    "bignumber",
+    "high-precision",
+    "precision",
+    "calc",
+    "calculate",
+    "calculating",
+    "large",
+    "numbers"
+  ]
 }

@@ -351,7 +351,7 @@ module.exports = function (formula, callback) {
 					});
 				});
 				break;
-			case 'ifelse':
+			case 'ternary':
 				var conditionResult;
 				async.eachSeries([arr[1]], function (arr2, cb2) {
 					if (BigNumber.isBigNumber(arr2)) {

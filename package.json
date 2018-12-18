@@ -1,6 +1,6 @@
 {
   "name": "eval-formula",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Library for calculating formulas. Supports very large numbers(uses BigNumber)",
   "dependencies": {
     "async": "^2.6.1",

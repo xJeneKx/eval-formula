@@ -3,7 +3,7 @@
 	var moo = require("moo");
 
     var lexer = moo.compile({
-      number: /[-0-9\.]+/,
+      number: /[0-9]+/,
       string: /"[\w\s]+"/,
       WS: /[ ]+/,
       op: ["+", "-", "/", "*", '&&', '||', '^'],
@@ -11,6 +11,7 @@
       l: '(',
       r: ')',
       comma: ',',
+      dot: '.',
       conditionals: ["==", ">=", "<=", "!=", ">", "<"],
       quote: '"',
       ternary: ['?', ':']
@@ -19,13 +20,13 @@
 
 @lexer lexer
 
-main -> _ condition _ {% function(d) {return d[1]; } %}
+main -> sCondition {% id %}
 
-ternary -> _ condition _ "?" _ AS _ ":" _ AS {% function(d) {return ['ternary', d[1], d[5], d[9]];}%}
+ternary -> sCondition "?" _ AS _ ":" _ AS {% function(d) {return ['ternary', d[0], d[3], d[7]];}%}
 
-OR -> condition2 _ "||" _ condition {% function(d) {return ['or', d[0], d[4]];}%}
+OR -> condition2 _ "||" sCondition {% function(d) {return ['or', d[0], d[3]];}%}
 
-AND -> condition2 _ "&&" _ condition {% function(d) {return ['and', d[0], d[4]];}%}
+AND -> condition2 _ "&&" sCondition {% function(d) {return ['and', d[0], d[3]];}%}
 
 condition -> AS conditional AS {% function(d) {return ['condition', d[1], d[0], d[2]];}%}
  			| string _ "==" _ string {% function(d) {return ['stringCondition', '==', d[0], d[4]];} %}
@@ -38,9 +39,10 @@ condition -> AS conditional AS {% function(d) {return ['condition', d[1], d[0], 
 condition2 -> AS conditional AS {% function(d) {return ['condition', d[1], d[0], d[2]];}%}
 	| AS {% id %}
 
+sCondition -> _ condition _ {% function(d){ return d[1]; } %}
 conditional -> _ %conditionals _ {% function(d) { return d[1].value } %}
 
-P -> "(" _ condition _ ")" {% function(d) {return d[2]; } %}
+P -> "(" sCondition ")" {% function(d) {return d[1]; } %}
     | N      {% id %}
 
 E -> P _ "^" _ E    {% function(d) {return ['^', d[0], d[4]]; } %}
@@ -67,13 +69,22 @@ N -> float          {% id %}
     | "e"           {% function(d) {return ['e']; } %}
     | "sqrt" _ P    {% function(d) {return ['sqrt', d[2]]; } %}
     | "ln" _ P      {% function(d) {return ['log', d[2]]; }  %}
-    | "min" "(" [0-9\, ]:+ ")"  {% function(d) {var params = d[2].filter(function(v){return v.type === 'number'}).map(function(v){return v.value}); return ['min', params]; }  %}
-    | "max" "(" [0-9\, ]:+ ")"  {% function(d) {var params = d[2].filter(function(v){return v.type === 'number'}).map(function(v){return v.value}); return ['max', params]; }  %}
+    | "min" _ "(" (_ AS _ ",":*):+ _ ")"  {% function(d) {var params = d[3].map(function(v){return v[1]});return ['min', params]; }  %}
+    | "max" _ "(" (_ AS _ ",":*):+ _ ")"  {% function(d) {var params = d[3].map(function(v){return v[1]});return ['max', params]; }  %}
     | "ceil" _ P    {% function(d) {return ['ceil', d[2]]; } %}
     | "floor" _ P    {% function(d) {return ['floor', d[2]]; } %}
     | "round" _ P    {% function(d) {return ['round', d[2]]; } %}
 
-float -> %number           {% function(d) {return new BigNumber(d[0])} %}
+float -> "-":* %number ("." %number):*         {% function(d,l, reject) {
+var number = d[0][0] ? '-' + d[1] : d[1];
+if(d[2][0] && d[2][0][0].type === 'dot'){
+	if(d[2].length > 1 || d[2][0][1].type !== 'number'){
+		return reject;
+	}else{
+		number = number + '.' + d[2][0][1].value;
+	}
+}
+return new BigNumber(number)} %}
 
 value -> AS {% id %}
 string -> %string        {% function(d) {return d[0].value; } %}

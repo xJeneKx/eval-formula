@@ -6,6 +6,7 @@ var async = require('async');
 BigNumber.config({EXPONENTIAL_AT: [-1e+9, 1e9], POW_PRECISION: 100, RANGE: 100});
 
 module.exports = function (formula, callback) {
+	if(!formula || !formula.length) throw new Error('Incorrect formula');
 	var parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
 	parser.feed(formula);
 	
@@ -232,14 +233,39 @@ module.exports = function (formula, callback) {
 				}
 				break;
 			case 'min':
-				cb(arr[1].reduce(function (a, b) {
-					return BigNumber.min(a, b);
-				}));
+				var vals = [];
+				async.eachSeries(arr[1], function (el, _cb) {
+					if (BigNumber.isBigNumber(el)){
+						vals.push(el);
+						return _cb();
+					}
+					evaluate(el, function (res) {
+						vals.push(res);
+						return _cb();
+					});
+				}, function () {
+					cb(vals.reduce(function (a, b) {
+						return BigNumber.min(a, b);
+					}));
+				});
+				
 				break;
 			case 'max':
-				cb(arr[1].reduce(function (a, b) {
-					return BigNumber.max(a, b);
-				}));
+				var vals = [];
+				async.eachSeries(arr[1], function (el, _cb) {
+					if (BigNumber.isBigNumber(el)){
+						vals.push(el);
+						return _cb();
+					}
+					evaluate(el, function (res) {
+						vals.push(res);
+						return _cb();
+					});
+				}, function () {
+					cb(vals.reduce(function (a, b) {
+						return BigNumber.max(a, b);
+					}));
+				});
 				break;
 			case 'pi':
 				cb(new BigNumber(Math.PI));
@@ -367,7 +393,7 @@ module.exports = function (formula, callback) {
 						});
 					}
 				}, function () {
-					if(conditionResult){
+					if (conditionResult) {
 						var result;
 						async.eachSeries([arr[2]], function (arr3, cb3) {
 							if (BigNumber.isBigNumber(arr3)) {
@@ -382,7 +408,7 @@ module.exports = function (formula, callback) {
 						}, function () {
 							cb(result);
 						})
-					}else{
+					} else {
 						async.eachSeries([arr[3]], function (arr3, cb3) {
 							if (BigNumber.isBigNumber(arr3)) {
 								result = arr3;
